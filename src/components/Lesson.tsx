@@ -9,6 +9,7 @@ interface LessonProps {
     type: 'live' | 'class';
 
 }
+
 export function Lesson({title, availableAt, type}: LessonProps) {
     const isLessonAvailable = isPast(availableAt);
     const availableDateFormatted = format(availableAt, "EEEE' • ' d' de ' MMMM' • 'k'h'mm", {

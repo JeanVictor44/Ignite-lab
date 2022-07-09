@@ -6,7 +6,7 @@ export function Event(){
     return (
         <div className='flex flex-col min-h-screen'>
             <Header />
-            <main className='flex flex-1'>
+            <main className='flex flex-1 flex-col flex-col-reverse lg:flex-row'>
                 <Video />
                 <Sidebar />
             </main>

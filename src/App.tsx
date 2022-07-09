@@ -1,13 +1,13 @@
+import { MenuProvider } from "./context/Menu"
 import { Event } from "./pages/Event"
 
 
 function App() {
 
   return (
-    <div>
+    <MenuProvider>
       <Event />
-<h1>Hello world</h1>
-    </div>
+    </MenuProvider>
   )
 }
 

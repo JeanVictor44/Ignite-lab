@@ -1,3 +1,5 @@
+// https://svg2jsx.com/
+
 export function Logo() {
   return (
     <svg
