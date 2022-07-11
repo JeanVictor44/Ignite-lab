@@ -31,7 +31,7 @@ export function Sidebar() {
     
     const menuVisibility = isMenuOpen ? 'block' : 'hidden'
     return (
-        <aside className={`lg:block lg:w-[348px] lg:static lg:h-auto ${menuVisibility} absolute top-20 h-full w-full bg-gray-700 p-6 border-l border-gray-600`}>
+        <aside className={`lg:block lg:w-[348px] lg:static lg:h-auto ${menuVisibility} absolute top-[75px] z-50 h-full w-full bg-gray-700 p-6 border-l border-gray-600`}>
             <span className='font-bold text-2xl pb-6 mb-6 border-b border-gray-500 block text-center'>
                 Cronograma das aulas
             </span>
