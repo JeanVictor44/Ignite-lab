@@ -1,25 +1,11 @@
 import { CaretRight, DiscordLogo, FileArrowDown, ImageSquare, Lightning } from "phosphor-react";
 import { DefaultUi, Player, Youtube } from '@vime/react'
 import { gql, useQuery } from "@apollo/client";
-
+import { GET_LESSON_BY_SLUG_QUERY } from "../graphql/queries";
 import '@vime/core/themes/default.css';
+
 // Aspect ratio = proporção = padrão = 16/9 1600 x 900 = aspect-video do tailwind
 
-
-const GET_LESSON_BY_SLUG_QUERY = gql `
-    query GetLesosnBySlug ($slug:String) {
-        lesson(where: {slug: $slug}) {
-            videoId
-            title
-            description
-            teacher {
-            avatarURL
-            bio
-            name
-            }
-        }
-    }
-`
 
 interface VideoProps {
     lessonSlug: string;
