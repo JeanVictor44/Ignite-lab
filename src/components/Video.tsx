@@ -1,8 +1,7 @@
 import { CaretRight, DiscordLogo, FileArrowDown, ImageSquare, Lightning } from "phosphor-react";
 import { DefaultUi, Player, Youtube } from '@vime/react'
-import { gql, useQuery } from "@apollo/client";
-import { GET_LESSON_BY_SLUG_QUERY } from "../graphql/queries";
 import '@vime/core/themes/default.css';
+import { useGetLesosnBySlugQuery } from "../graphql/generated";
 
 // Aspect ratio = proporção = padrão = 16/9 1600 x 900 = aspect-video do tailwind
 
@@ -11,27 +10,15 @@ interface VideoProps {
     lessonSlug: string;
 }
 
-interface GetLessonBySlug {
-   lesson: {
-    videoId: string;
-    title: string;
-    description:string;
-    teacher: {
-        name: string;
-        bio: string;
-        avatarURL: string;
-    }
-   } 
-}
 
 export function Video({lessonSlug}: VideoProps) {
-    const { data } = useQuery<GetLessonBySlug>(GET_LESSON_BY_SLUG_QUERY, {
+    const { data } = useGetLesosnBySlugQuery( {
         variables: {
             slug: lessonSlug
         }
     })
 
-    if(!data){
+    if(!data || !data.lesson){
         return (
             <div className='flex-1'>
                 {/* Colocar tela de loading diferenciada, um foguete ou algo do tipo */}
@@ -65,27 +52,31 @@ export function Video({lessonSlug}: VideoProps) {
                             data.lesson.description
                            }
                         </p>    
-                        <div className='flex items-center gap-4 mt-6'>
-                            <img 
-                                className='h-16 rounded-full'
-                                src={data.lesson.teacher.avatarURL}
-                                alt='teacher profile' 
-                                />
-                            
-                            <div className='flex flex-col leading-relaxed'>
-                                <strong className='font-bold text-2xl'>
-                                    {
-                                        data.lesson.teacher.name
-                                    }
-                                </strong>
-                                <span className='text-gray-200 text-sm'>
-                                    {
-                                        data.lesson.teacher.bio
-                                    }
-                                </span>
-                            </div>
+                        {
+                            data.lesson.teacher && (
+                                <div className='flex items-center gap-4 mt-6'>
+                                    <img 
+                                        className='h-16 rounded-full'
+                                        src={data.lesson.teacher.avatarURL}
+                                        alt='teacher profile' 
+                                        />
+                                    
+                                    <div className='flex flex-col leading-relaxed'>
+                                        <strong className='font-bold text-2xl'>
+                                            {
+                                                data.lesson.teacher.name
+                                            }
+                                        </strong>
+                                        <span className='text-gray-200 text-sm'>
+                                            {
+                                                data.lesson.teacher.bio
+                                            }
+                                        </span>
+                                    </div>
 
-                        </div>
+                                </div>
+                            )
+                        }
                     </div>
                     <div className="flex flex-col gap-4 w-full lg:w-auto">
                         <a href='' className='p-4 first-letter:first-letter:text-sm bg-green-500 flex items-center justify-center rounded font-bold uppercase gap-2 hover:bg-green-700 transition-colors'>

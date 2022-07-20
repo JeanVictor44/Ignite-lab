@@ -1,20 +1,11 @@
 import { Lesson } from "./Lesson";
 import { gql, useQuery } from '@apollo/client';
 import { useMenu } from "../context/Menu";
-import { GET_LESSONS_QUERY } from '../graphql/queries'
+import { useGetLessonsQuery } from "../graphql/generated";
 
-interface GetLessonsQueryResponse {
-    lessons: {
-        id: string
-        title: string
-        slug: string
-        availableAt: Date
-        lessonType: 'live' | 'class'
-    }[]
-}
 
 export function Sidebar() {
-    const { data } = useQuery<GetLessonsQueryResponse>(GET_LESSONS_QUERY )
+    const { data } = useGetLessonsQuery()
     const { isMenuOpen } = useMenu()
     
     const menuVisibility = isMenuOpen ? 'block' : 'hidden'
